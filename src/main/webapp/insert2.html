@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		background: pink;
+	}
+	*{
+		font-size: 20px;
+		text-align: center;
+	}
+	.left { 
+		/* 여러개를 선택해서 지정하고 싶을 때 클래스를 사용. 클래스 중 left에 해당하는 것만 스타일을 지정해라. */
+		/* 클래스 선택은 .클래스명 */
+		width: 100px;
+		background: blue;
+		color: white;
+	}
+	#bottom {
+		background: red;
+		color: yellow;
+	}
+	input{
+		background: greenyellow;
+	}
+	textarea{
+		background: greenyellow;
+	}
+</style>
+</head>
+<body>
+		<h3>게시판글쓰기화면입니다.</h3>
+		<hr color="red">
+		<a href="index.html">첫페이지로 이동</a>
+		<a href="bbs.html">게시판정보페이지로 이동</a>
+		<form action="insert2.jsp">
+		<table border="1" align="center">
+			<tr>
+				<td class="left">제목: </td>
+				<td>
+					<input name="title" value="good">
+				</td>
+			</tr>
+			<tr>
+				<td class="left">내용: </td>
+				<td>
+					<textarea cols="20" rows="5" name="content">very good</textarea>				</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="left">작성자: </td>
+				<td>
+					<input name="writer" value="apple">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" id="bottom" >
+					<button type="submit">게시판글쓰기요청</button>
+
+				</td>
+			</tr>
+		</table>
+		</form>
+</body>
+</html>
