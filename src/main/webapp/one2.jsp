@@ -1,3 +1,12 @@
+<%@page import="bean.BbsVO"%>
+<%@page import="bean.BbsDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%
+    	String no = request.getParameter("no");
+    	BbsDAO dao = new BbsDAO();
+    	BbsVO bag = dao.one(Integer.parseInt(no));
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,38 +36,33 @@
 	}
 </style>
 </head>
-<body>
-		<h3>게시판글쓰기화면입니다.</h3>
-		<hr color="red">
-		<a href="index.html">첫페이지로 이동</a>
-		<a href="bbs.html">게시판정보페이지로 이동</a>
-		<form action="insert2.jsp">
-		<table border="1" align="center">
+<body bgcolor="red">
+
+<table border="1" align="center">
+			<tr>
+				<td class="left">번호: </td>
+				<td>
+					<%= bag.getNo() %>
+				</td>
+			</tr>
 			<tr>
 				<td class="left">제목: </td>
 				<td>
-					<input name="title" value="good">
+					<%= bag.getTitle() %>
 				</td>
 			</tr>
 			<tr>
 				<td class="left">내용: </td>
 				<td>
-					<textarea cols="20" rows="5" name="content">very good</textarea>				</textarea>
+					<textarea cols="20" rows="5" name="content"><%= bag.getContent() %></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td class="left">작성자: </td>
 				<td>
-					<input name="writer" value="apple">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" id="bottom" >
-					<button type="submit">게시판글쓰기요청</button>
-
+					<%= bag.getWriter() %> 
 				</td>
 			</tr>
 		</table>
-		</form>
 </body>
 </html>

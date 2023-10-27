@@ -1,7 +1,9 @@
 package bean;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class ProductDAO {
 	Connection con = null; // 클래스 바로 아래에 만들어주면 클래스 전체영역에서 사용 가능

@@ -1,6 +1,5 @@
 <%@page import="bean.MemberVO"%>
-<%@page import="bean.MemberDAO"%>
-
+<%@ page import="bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <!--

@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	body{
+		background: pink;
+	}
 	*{
 		font-size: 20px;
 		text-align: center;
@@ -22,40 +25,25 @@
 	input{
 		background: greenyellow;
 	}
-	textarea{
-		background: greenyellow;
-	}
 </style>
 </head>
 <body>
-		<h3>게시판글쓰기화면입니다.</h3>
+		<h3>게시판 검색 화면입니다.</h3>
 		<hr color="red">
 		<a href="index.html">첫페이지로 이동</a>
 		<a href="bbs.html">게시판정보페이지로 이동</a>
-		<form action="insert2.jsp">
+		<form action="one2.jsp">
 		<table border="1" align="center">
 			<tr>
-				<td class="left">제목: </td>
+				<td>번호: </td>
 				<td>
-					<input name="title" value="good">
+					<input name="no" value="2">
 				</td>
 			</tr>
+			
 			<tr>
-				<td class="left">내용: </td>
-				<td>
-					<textarea cols="20" rows="5" name="content">very good</textarea>				</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td class="left">작성자: </td>
-				<td>
-					<input name="writer" value="apple">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" id="bottom" >
-					<button type="submit">게시판글쓰기요청</button>
-
+				<td colspan="2">
+					<button type="submit">게시판검색요청</button>
 				</td>
 			</tr>
 		</table>
