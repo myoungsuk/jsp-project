@@ -1,155 +1,147 @@
 package bean;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
-public class BbsDAO { // member테이블에 crud를 하고 싶으면 MemberDAO를 사용하면 됨.!
-	Connection con = null; // 클래스 바로 아래에 만들어주면 클래스 전체영역에서 사용 가능
-	DBConnectionMgr dbcp; // null
-
+public class BbsDAO {
+	Connection con;
+	
 	public BbsDAO() {
 		try {
-			dbcp = DBConnectionMgr.getInstance();
-			con = dbcp.getConnection();// 임대
-		} catch (Exception e) {
-			System.out.println("에러발생!!");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// 특정한 위치에 있는 드라이버 파일을 램에 읽어들여 설정
+			System.out.println("1. 드라이버 설정 성공.@@@@");
+
+			// 2. db연결 mySQL: school, oracle: xe
+			String url = "jdbc:mysql://localhost:3306/shop5?useUnicode=true&serverTimezone=Asia/Seoul";
+			String user = "root";
+			String password = "myoung1249!";
+			Connection con = DriverManager.getConnection(url, user, password); // Connection
+			System.out.println("2. db연결 성공.@@@@@@");
+		}catch (Exception e) {
 		}
+	}
+	public int insert(BbsDTO dto) {
+		int result = 0;
+		try {
+			// 3.SQL문 결정/생성
+			// String sql = "insert into bbs values (null,?,?,?)"; //MYSQL
+			String sql = "insert into bbs values (BBSSEQ.NEXTVAL, ?, ?, ?)"; // ORACLE
+//		String sql = "insert into bbs(title, content, writer) values (?,?,?)";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setString(3, dto.getWriter());
+
+			System.out.println("3.ok----------");
+
+			// 4.DB로 SQL문 전송
+			result = ps.executeUpdate();
+			System.out.println("4.ok----------");
+		} catch (Exception e) {
+			System.out.println("에러가 발생함.");
+		}
+		return result;
+
 	}
 	
 	
-	public ArrayList<BbsVO> list() {
-//		int result = 0;
-		ArrayList<BbsVO> list = new ArrayList<>();
-		
+	public int update(BbsDTO dto) {
+		int result = 0;
 		try {
-			String sql = "select * from bbs";
-			PreparedStatement ps = con.prepareStatement(sql); //
-			System.out.println("3. sql문 생성 성공!!");
+			// 3.SQL문 결정/생성
+			String sql = "update bbs set title = ?, content = ? where id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getContent());
+			ps.setString(3, dto.getId());
 
-			ResultSet table = ps.executeQuery(); // 테이블로 mysql로 받아온다.
-			System.out.println("4. SQL문 mySQL로 전송 성공!!");
-			while(table.next()) { // table안에 검색결과인 row가 있는지 체크
-				BbsVO bag = new BbsVO();
-				bag.setNo(table.getInt(1));
-				bag.setTitle(table.getString(2));
-				bag.setContent(table.getString(3));
-				bag.setWriter(table.getString(4));
-				list.add(bag);
-			} 
-			dbcp.freeConnection(con, ps, table);//반납 
-		} catch (Exception e) { // Exception == Error
-			e.printStackTrace();// 에러정보를 추적해서 프린트해줘.!
-			System.out.println("에러발생함.!!!!");
+			System.out.println("3.ok----------");
+
+			// 4.DB로 SQL문 전송
+			result = ps.executeUpdate();
+			System.out.println("4.ok----------");
+		} catch (Exception e) {
+			System.out.println("에러가 발생함.");
 		}
-		return list;
-	} // list
-	public BbsVO one(int no) {
-		BbsVO bag = new BbsVO();
-		try {
+		return result;
 
-			String sql = "select * from bbs where no = ? ";
-			PreparedStatement ps = con.prepareStatement(sql); //
-			ps.setInt(1, no); // 물음표 번호 1번에 id에 저장한 변수값을 넣어줘!
-			System.out.println("3. sql문 생성 성공!!");
-
-			ResultSet table = ps.executeQuery(); //테이블로 mysql로 받아온다. 
-			System.out.println("4. SQL문 mySQL로 전송 성공!!");
-			//System.out.println(table.next()); //table안에 데이터가 있으면 true
-			if(table.next()) { //table안에 검색결과인 row가 있는지 체크 
-				int no2 = table.getInt("no");
-				String title = table.getString("title");
-				String content = table.getString("content");
-				String writer = table.getString("writer");
-				//JOptionPane.showMessageDialog(null, title + " " + "");
-				System.out.println(no2);
-				System.out.println(title);
-				System.out.println(content);
-				System.out.println(writer);
-				bag.setNo(no2);
-				bag.setTitle(title);
-				bag.setContent(content);
-				bag.setWriter(writer);
-			}else {
-				System.out.println("검색결과가 없음.");
-			}
-		} catch (Exception e) { // Exception == Error
-			e.printStackTrace();// 에러정보를 추적해서 프린트해줘.!
-			System.out.println("에러발생함.!!!!");
-		}
-		return bag;
-	} // one
-
+	}
 	
-	public  int delete(int no) {
-		int result = 0; //sql실행한 결과 row수 저장할 목적
-		
+
+	public int delete(BbsDTO dto) {
+		int result = 0;
 		try {
-			String sql = "delete from bbs where no = ?";
-			PreparedStatement ps = con.prepareStatement(sql); //
-			ps.setInt(1, no); // 물음표 번호 1번에 id에 저장한 변수값을 넣어줘!
-			System.out.println("3. sql문 생성 성공!!");
+			// 3.SQL문 결정/생성
+			String sql = "delete from bbs where id = ?"; // ORACLE
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getId());
 
-			result = ps.executeUpdate(); //1 or 0 
-			System.out.println("4. SQL문 mySQL로 전송 성공!!");
-		} catch (Exception e) { // Exception == Error
-			e.printStackTrace();// 에러정보를 추적해서 프린트해줘.!
-			System.out.println("에러발생함.!!!!");
-		}
-		return result;
-	} // delete
+			System.out.println("3.ok----------");
 
-	public int insert(BbsVO bag) {
-		int result = 0; 
-		// Java-DB연결 (JDBC) 4단계
-		// 1. 연결할 부품(커넥터, driver, 드라이버) 설정
-		try {
-			// 3. 2번에서 연결된 것을 가지고 sql문 생성
-			String sql = "insert into bbs values (null, ?, ?, ?)";
-			PreparedStatement ps = con.prepareStatement(sql); //
-			ps.setString(1, bag.getTitle()); // 물음표 번호 1번에 title에 저장한 변수값을 넣어줘!
-			ps.setString(2, bag.getContent()); // 물음표 번호 2번에 content에 저장한 변수값을 넣어줘!
-			ps.setString(3, bag.getWriter()); // 물음표 번호 3번에 writer에 저장한 변수값을 넣어줘!
-			System.out.println("3. sql문 생성 성공!!");
-
-			// URL site = new URL(site);
-
-			// 4. 3번에서 생성된 sql문을 Mysql로 전송
+			// 4.DB로 SQL문 전송
 			result = ps.executeUpdate();
-			System.out.println("4. SQL문 mySQL로 전송 성공!!");
-		} catch (Exception e) { // Exception == Error
-			e.printStackTrace();// 에러정보를 추적해서 프린트해줘.!
-			System.out.println("에러발생함.!!!!");
+			System.out.println("4.ok----------");
+		} catch (Exception e) {
+			System.out.println("에러가 발생함.");
 		}
 		return result;
-	} // insert
 
-	public int update(String title, String content, int no) {
-		// Java-DB연결 (JDBC) 4단계
-		// 1. 연결할 부품(커넥터, driver, 드라이버) 설정
-		int result = 0; 
-		try {
-			// 3. 2번에서 연결된 것을 가지고 sql문 생성
-			String sql = "update bbs set title = ?, content = ? where no = ?";
-			PreparedStatement ps = con.prepareStatement(sql); //
-			ps.setString(1, title); 
-			ps.setString(2, content); 
-			ps.setInt(3, no); //where no = 3 
-			System.out.println("3. sql문 생성 성공!!");
+	}
+	// 리스트 전체 보기
+	public ArrayList<BbsDTO> list() throws Exception {
+		// 3.SQL문 결정/생성
+		String sql = "select * from bbs order by id desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		System.out.println("3.ok----------");
 
-			// URL site = new URL(site);
+		// 4. sql문 mysql서버로 전송
+		// 5. 검색결과를 ArrayList에 넣어서 return
+		ArrayList<BbsDTO> list = new ArrayList<>();
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) { // true이면
+			// rs내의 한 행씩 아래로 내려가면서 그 행에 결과가 들어있는지 체크
+			// 내부적으로 한 행씩 가르키게 됨: 커서!
+			// 가방을 하나 만들어서
+			BbsDTO dto = new BbsDTO();
+			dto.setId(rs.getString(1));
+			dto.setTitle(rs.getString(2));
+			dto.setContent(rs.getString(3));
+			dto.setWriter(rs.getString(4));
 
-			// 4. 3번에서 생성된 sql문을 Mysql로 전송
-			result = ps.executeUpdate();
-			System.out.println("4. SQL문 mySQL로 전송 성공!!");
-		} catch (Exception e) { // Exception == Error
-			e.printStackTrace();// 에러정보를 추적해서 프린트해줘.!
-			System.out.println("에러발생함.!!!!");
+			// 가방을 list에 넣는다.
+			list.add(dto);
 		}
-		return result;
-	} // update
+		System.out.println(list.size());
+		return list;
 
-} // class
+	}
+
+	// 리스트 중에서 선택한 물건 하나 보기
+	public BbsDTO one(BbsDTO dto) throws Exception {
+		// 3.SQL문 결정/생성
+		String sql = "select * from bbs where id = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		System.out.println("3.ok----------");
+		ps.setString(1, dto.getId());
+
+		// 4. sql문 mysql서버로 전송
+		ResultSet rs = ps.executeQuery();
+		BbsDTO dto2 = new BbsDTO();
+		if (rs.next()) { // true이면
+			// rs내의 한 행씩 아래로 내려가면서 그 행에 결과가 들어있는지 체크
+			// 내부적으로 한 행씩 가르키게 됨: 커서!
+			// 가방을 하나 만들어서
+			// 각 컬럼의 인덱스를 가지고 꺼내와서 가방에 넣는다.
+			dto2.setId(rs.getString(1));
+			dto2.setTitle(rs.getString(2));
+			dto2.setContent(rs.getString(3));
+			dto2.setWriter(rs.getString(4));
+		}
+		return dto2;
+	}
+}

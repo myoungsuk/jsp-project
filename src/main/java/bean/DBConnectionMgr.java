@@ -30,7 +30,7 @@ import java.util.Vector;
 public class DBConnectionMgr {
     private Vector connections = new Vector(10); //Connection 10
     private String _driver = "com.mysql.cj.jdbc.Driver",
-    _url = "jdbc:mysql://localhost:3306/shop?useUnicode=true&serverTimezone=Asia/Seoul",
+    _url = "jdbc:mysql://localhost:3306/shop5?useUnicode=true&serverTimezone=Asia/Seoul",
     _user = "root",
     _password = "myoung1249!";
     private boolean _traceOn = false;
