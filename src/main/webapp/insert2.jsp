@@ -1,26 +1,21 @@
-<%@page import="bean.BbsVO"%>
 <%@page import="bean.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <jsp:useBean id="dto" class="bean.BbsDTO"></jsp:useBean>
+    <jsp:setProperty property="*" name="dto"/>
     
-    <!-- 
-    	1) 클라이언트로부터 전달되는 데이터 받아서 저장하기 
-    	2) dao이용해서 db처리하기 
-    	3) 결과 html로 만들어서 클라이언트로 전송하기 
-     -->
-     <%
-     	String title = request.getParameter("title");
-     	String content = request.getParameter("content");
-     	String writer = request.getParameter("writer");
-     	
-     	BbsDAO dao = new BbsDAO();
-     	BbsVO bag = new BbsVO();
-     	bag.setTitle(title);
-     	bag.setContent(content);
-     	bag.setWriter(writer);
-     	
-     	dao.insert(bag);
-     %>
+    <%
+    	BbsDAO dao = new BbsDAO();
+    	int result = dao.insert(dto);
+    	if(result == 1){
+    %>
+    	<script type="text/javascript">
+			alert('게시물 작성이 완료되었습니다.')
+			location.href="bbs.jsp"
+		</script>
+    <%		
+    	}
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +23,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-게시물이 등록되었습니다.<br>
-서버에서 받은 데이터는 <%= title %>, <%= content %>, <%= writer %>
+게시물 작성에 문제가 생겼습니다.
 </body>
 </html>

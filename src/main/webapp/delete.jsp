@@ -1,30 +1,35 @@
-<%@page import="bean.MemberDAO"%>
+<%@page import="bean.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <!--  
-    	1. 데이터를 받아서 저장해두자.
-    	HttpServletRequest request = new HttpServletRequest(); 내장객체 
-    	2. dao를 이용해서 데이터를 주면서 db처리해달라고 요청 
-    	3. 요청에 대한 결과를 html을 만든다.
-    -->
-    <%
-		String id = request.getParameter("id"); //id=apple   
-		
-		MemberDAO dao = new MemberDAO();
-		int result = dao.delete(id); //1, 0
-		String resultText = "회원탈퇴실패함.";
-		if(result == 1){
-			resultText = "회원탈퇴성공함.";
-		}
-		
-    %>
+	pageEncoding="UTF-8"%>
+<jsp:useBean id="dto" class="bean.BbsDTO"></jsp:useBean>
+<jsp:setProperty property="id" name="dto" />
+<%
+BbsDAO dao = new BbsDAO();
+int result = dao.delete(dto);
+if (result == 1) {
+%>
+<script>
+	alert('삭제가 완료되었습니다.')
+	location.href = "bbs.jsp";
+</script>
+<%
+} else {
+%>
+<script>
+	alert('삭제중 문제가 생겼습니다.')
+</script>
+<%
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body bgcolor="red">
-<h4><%= resultText %></h4>
+<body>
+	<a href="bbs.jsp">
+		<button class="btn btn-danger">리스트로</button>
+	</a>
 </body>
 </html>
