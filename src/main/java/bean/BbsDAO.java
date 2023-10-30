@@ -20,7 +20,7 @@ public class BbsDAO {
 			String url = "jdbc:mysql://localhost:3306/shop5?useUnicode=true&serverTimezone=Asia/Seoul";
 			String user = "root";
 			String password = "myoung1249!";
-			Connection con = DriverManager.getConnection(url, user, password); // Connection
+			con = DriverManager.getConnection(url, user, password); // Connection
 			System.out.println("2. db연결 성공.@@@@@@");
 		}catch (Exception e) {
 		}
@@ -29,9 +29,9 @@ public class BbsDAO {
 		int result = 0;
 		try {
 			// 3.SQL문 결정/생성
-			// String sql = "insert into bbs values (null,?,?,?)"; //MYSQL
-			String sql = "insert into bbs values (BBSSEQ.NEXTVAL, ?, ?, ?)"; // ORACLE
-//		String sql = "insert into bbs(title, content, writer) values (?,?,?)";
+			 String sql = "insert into bbs values (null,?,?,?)"; //MYSQL
+//			String sql = "insert into bbs values (BBSSEQ.NEXTVAL, ?, ?, ?)"; // ORACLE
+//			String sql = "insert into bbs(title, content, writer) values (?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
@@ -58,7 +58,7 @@ public class BbsDAO {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
-			ps.setString(3, dto.getId());
+			ps.setInt(3, dto.getId());
 
 			System.out.println("3.ok----------");
 
@@ -79,7 +79,7 @@ public class BbsDAO {
 			// 3.SQL문 결정/생성
 			String sql = "delete from bbs where id = ?"; // ORACLE
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, dto.getId());
+			ps.setInt(1, dto.getId());
 
 			System.out.println("3.ok----------");
 
@@ -108,7 +108,7 @@ public class BbsDAO {
 			// 내부적으로 한 행씩 가르키게 됨: 커서!
 			// 가방을 하나 만들어서
 			BbsDTO dto = new BbsDTO();
-			dto.setId(rs.getString(1));
+			dto.setId(rs.getInt(1));
 			dto.setTitle(rs.getString(2));
 			dto.setContent(rs.getString(3));
 			dto.setWriter(rs.getString(4));
@@ -127,7 +127,7 @@ public class BbsDAO {
 		String sql = "select * from bbs where id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		System.out.println("3.ok----------");
-		ps.setString(1, dto.getId());
+		ps.setInt(1, dto.getId());
 
 		// 4. sql문 mysql서버로 전송
 		ResultSet rs = ps.executeQuery();
@@ -137,7 +137,7 @@ public class BbsDAO {
 			// 내부적으로 한 행씩 가르키게 됨: 커서!
 			// 가방을 하나 만들어서
 			// 각 컬럼의 인덱스를 가지고 꺼내와서 가방에 넣는다.
-			dto2.setId(rs.getString(1));
+			dto2.setId(rs.getInt(1));
 			dto2.setTitle(rs.getString(2));
 			dto2.setContent(rs.getString(3));
 			dto2.setWriter(rs.getString(4));

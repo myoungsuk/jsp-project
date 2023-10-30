@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/project.css">
+<link rel="stylesheet" href="../css/project.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -57,7 +57,7 @@
 			</td>
 			<td><%= dto.getPrice() %> </td>
 			<td>
-				<img src="img/<%= dto.getImg() %>" width="150" height="100">
+				<img src="../img/<%= dto.getImg() %>" width="150" height="100">
 			</td>
 		</tr>
 		<% } %>

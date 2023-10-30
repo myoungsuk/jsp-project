@@ -11,7 +11,7 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<link rel="stylesheet" href="css/project.css">
+<link rel="stylesheet" href="../css/project.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -74,7 +74,7 @@
 			<table border="1" class="table table-hover">
 				<tr class="table-info">
 					<td rowspan="5" class="table-info"><img alt="상품이미지"
-						src="img/<%=dto2.getImg()%>" height="400" width="500"></td>
+						src="../img/<%=dto2.getImg()%>" height="400" width="500"></td>
 					<td><span class="alert alert-danger">상품아이디: <%=dto2.getId()%>
 					</span></td>
 				</tr>
