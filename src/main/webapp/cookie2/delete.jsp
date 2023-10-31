@@ -1,35 +1,33 @@
 <%@page import="bean.BbsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="dto" class="bean.BbsDTO"></jsp:useBean>
-<jsp:setProperty property="id" name="dto" />
+<!-- 
+	1. id를 받아서 dtd에 저장 
+	2. dao db처리하고
+	3. 성공하면 bbs.jsp로 넘어가자.
+	   bbs.jsp로 넘어가지 전에 alert()를 띄워주자.!
+  -->
+<jsp:useBean id="bag" class="bean.BbsDTO2"></jsp:useBean>
+<jsp:setProperty property="id" name="bag" />
+
 <%
+//스크립트릿(코드블록)
+
 BbsDAO dao = new BbsDAO();
-int result = dao.delete(dto);
-if (result == 1) {
+int result = dao.delete(bag);//int
+if(result == 1){
 %>
-<script>
-	alert('삭제가 완료되었습니다.')
-	location.href = "bbs.jsp";
-</script>
-<%
-} else {
+	<script>
+		alert('삭제 성공@@@!!!');
+		location.href = "bbs.jsp"
+	</script>
+<% } else { %>
+	<script>
+		alert('삭제 실패@@@!!!');
+		//location.href = "bbs.jsp"
+	</script>
+<% } %>
+
+
+
 %>
-<script>
-	alert('삭제중 문제가 생겼습니다.')
-</script>
-<%
-}
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<a href="bbs.jsp">
-		<button class="btn btn-danger">리스트로</button>
-	</a>
-</body>
-</html>

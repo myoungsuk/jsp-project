@@ -1,51 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
-	<title>Menu List</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 목록</title>
 	<style>
-		body {
-			font-family: 'Arial', sans-serif;
-			background-color: #f8f9fa;
-			padding: 40px;
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			font-family: 'Noto Sans KR', sans-serif;
+			text-align: center;
 		}
-		.menu-link {
-			padding: 10px 15px;
-			border-radius: 5px;
+
+		li {
+			margin: 15px 0;
+			padding: 10px 20px;
+			border: 2px solid #e0e0e0;
+			border-radius: 10px;
+			transition: background-color 0.3s, transform 0.3s;
+		}
+
+		li:hover {
+			background-color: #007BFF;
+			transform: scale(1.05);
+		}
+
+		a {
 			text-decoration: none;
 			color: #333;
-			background-color: #e9ecef;
-			transition: background-color 0.2s;
+			font-weight: bold;
+			transition: color 0.3s;
 		}
-		.menu-link:hover {
-			background-color: #ced4da;
-			text-decoration: none;
-			color: #333;
+
+		a:hover {
+			color: #ffffff;
 		}
-		.menu-icon {
-			margin-right: 10px;
+
+		.border {
+			height: 2px;
+			background-color: #007BFF;
+			margin: 10px 0;
 		}
 	</style>
 </head>
 <body>
-
-<div class="menu-container">
-	<a href="member.jsp" class="menu-link">
-		<i class="fas fa-user-plus menu-icon"></i>회원가입
-	</a>
-	<a href="product.jsp" class="menu-link">
-		<i class="fas fa-box-open menu-icon"></i>제품정보
-	</a>
-	<a href="bbs.jsp" class="menu-link">
-		<i class="fas fa-comments menu-icon"></i>게시판
-	</a>
-	<a href="basket.jsp" class="menu-link">
-		<i class="fas fa-shopping-basket menu-icon"></i>장바구니
-	</a>
-</div>
-
+<ul>
+	<li><div class="border"></div><a href="member.jsp">회원가입</a></li>
+	<li><div class="border"></div><a href="product.jsp">제품정보</a></li>
+	<li><div class="border"></div><a href="bbs.jsp">게시판</a></li>
+	<li><div class="border"></div><a href="basket.jsp">장바구니</a></li>
+</ul>
 </body>
 </html>

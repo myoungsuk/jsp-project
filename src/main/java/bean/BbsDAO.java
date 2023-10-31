@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BbsDAO {
@@ -24,7 +25,7 @@ public class BbsDAO {
 		}catch (Exception e) {
 		}
 	}
-	public int insert(BbsDTO dto) {
+	public int insert(BbsDTO2 dto) {
 		int result = 0;
 		try {
 			// 3.SQL문 결정/생성
@@ -49,7 +50,7 @@ public class BbsDAO {
 	}
 	
 	
-	public int update(BbsDTO dto) {
+	public int update(BbsDTO2 dto) {
 		int result = 0;
 		try {
 			// 3.SQL문 결정/생성
@@ -72,7 +73,7 @@ public class BbsDAO {
 	}
 	
 
-	public int delete(BbsDTO dto) {
+	public int delete(BbsDTO2 dto) {
 		int result = 0;
 		try {
 			// 3.SQL문 결정/생성
@@ -121,7 +122,7 @@ public class BbsDAO {
 	}
 
 	// 리스트 중에서 선택한 물건 하나 보기
-	public BbsDTO2 getOneId(BbsDTO2 dto) throws Exception {
+	public BbsDTO2 one(BbsDTO2 dto) throws Exception {
 		// 3.SQL문 결정/생성
 		String sql = "select * from bbs where id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);

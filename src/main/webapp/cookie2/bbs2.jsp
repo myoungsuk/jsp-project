@@ -1,75 +1,78 @@
 <%@page import="bean.BbsDTO2"%>
 <%@page import="bean.BbsDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-		 pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <jsp:useBean id="bag" class="bean.BbsDTO2"></jsp:useBean>
 <jsp:setProperty property="id" name="bag"/>
 <%
 	BbsDAO dao = new BbsDAO();
-	BbsDTO2 bag2 = dao.getOneId(bag);
+	BbsDTO2 bag2 = dao.one(bag);
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" href="css/project.css">
-	<!-- Latest compiled and minified CSS -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>게시글 상세보기</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Latest compiled JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-<div id="total">
-	<div id="top">
-		<jsp:include page="top.jsp"></jsp:include> <!-- 액션태그 -->
+<body class="bg-light">
+<div class="container mt-5">
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<jsp:include page="top.jsp"></jsp:include>
+		</div>
 	</div>
-	<div id="top2">
-		<jsp:include page="top2.jsp"></jsp:include>
-	</div>
-	<div id="center">
-		<br>
-		<% if(session.getAttribute("id") != null ) { %>
-		<%= session.getAttribute("id") %>님 환영합니다.
-		<a href="logout.jsp">
-			<button class="btn btn-outline-danger">로그아웃</button>
-		</a>
-		<% } %>
-		<br>
-		<%-- <%= bag2 %> --%>
-		<table class="table">
-			<tr class="table-success">
-				<td>제목</td>
-				<td><%= bag2.getTitle() %></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><%= bag2.getContent() %></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td><%= bag2.getWriter() %></td>
-			</tr>
-		</table>
-		<center>
 
-			<a href="bbs.jsp">
-				<button class="btn btn-info">리스트로</button>
-			</a>
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<jsp:include page="top2.jsp"></jsp:include>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 mb-3">
+			<% if(session.getAttribute("id") != null ) { %>
+			<div class="alert alert-info d-flex align-items-center">
+				<strong><%=session.getAttribute("id")%></strong>님 환영합니다.
+				<div class="ms-auto">
+					<a href="logout.jsp" class="btn btn-outline-danger btn-sm">로그아웃</a>
+				</div>
+			</div>
+			<% } %>
+		</div>
+
+		<div class="col-md-12 mb-3">
+			<table class="table table-bordered">
+				<tbody>
+				<tr class="table-success">
+					<th width="15%">제목</th>
+					<td><%= bag2.getTitle() %></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td><%= bag2.getWriter() %></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><%= bag2.getContent() %></td>
+				</tr>
+
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-12 text-center">
+			<a href="bbs.jsp" class="btn btn-info me-2">리스트로</a>
 			<%
 				if(session.getAttribute("id") != null){
 					if(session.getAttribute("id").equals(bag2.getWriter())){
 			%>
-			<a href="update.jsp"><%= bag2.getId() %>
-				<button class="btn btn-danger">수정하기</button>
-			</a>
-			<a href="delete.jsp"><%= bag2.getId() %>
-				<button class="btn btn-danger">삭제하기</button>
-			</a>
+			<a href="update.jsp?id=<%= bag.getId()%>" class="btn btn-warning me-2">수정하기</a>
+			<a href="delete.jsp?id=<%= bag.getId()%>" class="btn btn-danger">삭제하기</a>
 			<% }} %>
-		</center>
+		</div>
 	</div>
 </div>
 </body>

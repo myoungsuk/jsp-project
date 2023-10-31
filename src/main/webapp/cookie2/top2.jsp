@@ -1,35 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니 현황</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .header-section {
-            background-color: #343a40;
-            color: #ffffff;
-            padding: 15px 0;
-            text-align: center;
-            font-size: 26px;
-            margin-bottom: 30px;
+        .cart-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-
 <body>
-<div class="container mt-5">
-    <div class="header-section">
-        장바구니 현황
-    </div>
 
-    <!-- 여기에 페이지의 내용을 추가하시면 됩니다. -->
+<div class="cart-status">
+    <h2>장바구니 현황</h2>
+    <!-- 장바구니 내용이 들어갈 부분 -->
+    <p>아이템 내용1</p>
+    <p>아이템 내용2</p>
+    <p>아이템 내용3</p>
+    <!-- ... -->
 </div>
+
 </body>
 </html>

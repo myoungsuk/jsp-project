@@ -1,84 +1,77 @@
-<%@page import="bean.BbsDTO"%>
+<%@page import="bean.BbsDTO2"%>
 <%@page import="bean.BbsDAO"%>
-<%@ page import="bean.BbsDTO2" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="../css/project.css">
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<jsp:useBean id="bag" class="bean.BbsDTO2"></jsp:useBean>
+<jsp:setProperty property="id" name="bag"/>
 <%
-//jsp에 자동import
-//클릭하고 ctrl + shift + m
-BbsDAO dao = new BbsDAO();
-BbsDTO2 dto = new BbsDTO2();
-
-dto.setId(Integer.parseInt(request.getParameter("id")));
-
-BbsDTO2 bag = dao.getOneId(dto);
+	BbsDAO dao = new BbsDAO();
+	BbsDTO2 bag2 = dao.one(bag);
 %>
-<body>
-	<div id="total">
-		<div id="top">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>글 수정하기</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+	<div class="row mb-4">
+		<div class="col-md-12">
 			<jsp:include page="top.jsp"></jsp:include>
 		</div>
-		<div id="top2">
+	</div>
+
+	<div class="row mb-4">
+		<div class="col-md-12">
 			<jsp:include page="top2.jsp"></jsp:include>
 		</div>
-		<div id="center">
-			게시판 수정 화면
-			<hr color="red">
-			<%
-			if (session.getAttribute("id") != null) {
-			%>
-			<span class="alert alert-success">
-				<%=session.getAttribute("id")%>님 환영합니다.
-			</span>
-			<%
-			}
-			%>
-			<hr color="blue">
-			<form action="update2.jsp">
-			<input type="hidden" name="id" value="<%= bag.getId() %>">
-				<table border="1"  class="table table-hover">
-					<tr  class="table-warning">
-						<td width="200">제목</td>
-						<td width="300"><input name="title" value="<%= bag.getTitle() %>"></td>
-					</tr>
-					<tr  class="table-warning">
-						<td width="200">내용</td>
-						<td width="300"><input name="content" value="<%= bag.getContent() %>"></td>
-					</tr>
-					<tr  class="table-warning">
-						<td width="200">작성자</td>
-						<td width="300">
-						<!-- type="hidden"이면 input이 안보임. 값은 전달됨 -->
-						<input 	name="writer" style="height: 100px;"
-								value="<%=session.getAttribute("id")%>"
-								readonly="readonly"
-								disabled="disabled"
-								>
-						</td>
-					</tr>
-					<tr  class="table-warning">
-						<td colspan="2">
-							<button type="submit" class="btn btn-danger">글수정 완료</button>
-						</td>
-					</tr>
-				</table>
-			</form>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12 mb-3">
+			<% if(session.getAttribute("id") != null ) { %>
+			<div class="alert alert-info d-flex align-items-center">
+				<strong><%=session.getAttribute("id")%></strong>님 환영합니다.
+				<div class="ms-auto">
+					<a href="logout.jsp" class="btn btn-outline-danger btn-sm">로그아웃</a>
+				</div>
+			</div>
+			<% } %>
+		</div>
+
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header bg-warning">
+					<h5 class="mb-0">글 수정하기</h5>
+				</div>
+				<div class="card-body">
+					<form action="update2.jsp">
+						<input name="id" value="<%= bag2.getId() %>" type="hidden">
+						<div class="mb-3">
+							<label for="title" class="form-label">제목</label>
+							<input type="text" class="form-control" id="title" name="title" value="<%= bag2.getTitle()%>">
+						</div>
+						<div class="mb-3">
+							<label for="content" class="form-label">내용</label>
+							<textarea class="form-control" id="content" name="content" rows="4"><%= bag2.getContent()%></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="writer" class="form-label">작성자</label>
+							<input type="text" class="form-control" id="writer" name="writer" value="${id}" readonly>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-info">글수정하기</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>
