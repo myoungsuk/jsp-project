@@ -5,7 +5,7 @@
     <%
     	String no = request.getParameter("no");
     	BbsDAO dao = new BbsDAO();
-    	BbsVO bag = dao.one(Integer.parseInt(no));
+    	BbsVO bag = dao.getOneId(Integer.parseInt(no));
     %>
 <!DOCTYPE html>
 <html>

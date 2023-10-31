@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BbsDAO {
@@ -29,9 +28,9 @@ public class BbsDAO {
 		int result = 0;
 		try {
 			// 3.SQL문 결정/생성
-			 String sql = "insert into bbs values (null,?,?,?)"; //MYSQL
-//			String sql = "insert into bbs values (BBSSEQ.NEXTVAL, ?, ?, ?)"; // ORACLE
-//			String sql = "insert into bbs(title, content, writer) values (?,?,?)";
+			String sql = "insert into bbs values (null,?,?,?)"; //MYSQL
+			//String sql = "insert into bbs values (BBSSEQ.NEXTVAL, ?, ?, ?)"; // ORACLE
+//		String sql = "insert into bbs(title, content, writer) values (?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getTitle());
 			ps.setString(2, dto.getContent());
@@ -93,7 +92,7 @@ public class BbsDAO {
 
 	}
 	// 리스트 전체 보기
-	public ArrayList<BbsDTO> list() throws Exception {
+	public ArrayList<BbsDTO2> list() throws Exception {
 		// 3.SQL문 결정/생성
 		String sql = "select * from bbs order by id desc";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -101,13 +100,13 @@ public class BbsDAO {
 
 		// 4. sql문 mysql서버로 전송
 		// 5. 검색결과를 ArrayList에 넣어서 return
-		ArrayList<BbsDTO> list = new ArrayList<>();
+		ArrayList<BbsDTO2> list = new ArrayList<>();
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) { // true이면
 			// rs내의 한 행씩 아래로 내려가면서 그 행에 결과가 들어있는지 체크
 			// 내부적으로 한 행씩 가르키게 됨: 커서!
 			// 가방을 하나 만들어서
-			BbsDTO dto = new BbsDTO();
+			BbsDTO2 dto = new BbsDTO2();
 			dto.setId(rs.getInt(1));
 			dto.setTitle(rs.getString(2));
 			dto.setContent(rs.getString(3));
@@ -122,7 +121,7 @@ public class BbsDAO {
 	}
 
 	// 리스트 중에서 선택한 물건 하나 보기
-	public BbsDTO one(BbsDTO dto) throws Exception {
+	public BbsDTO2 getOneId(BbsDTO2 dto) throws Exception {
 		// 3.SQL문 결정/생성
 		String sql = "select * from bbs where id = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -131,7 +130,7 @@ public class BbsDAO {
 
 		// 4. sql문 mysql서버로 전송
 		ResultSet rs = ps.executeQuery();
-		BbsDTO dto2 = new BbsDTO();
+		BbsDTO2 dto2 = new BbsDTO2();
 		if (rs.next()) { // true이면
 			// rs내의 한 행씩 아래로 내려가면서 그 행에 결과가 들어있는지 체크
 			// 내부적으로 한 행씩 가르키게 됨: 커서!

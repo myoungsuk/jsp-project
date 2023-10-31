@@ -38,6 +38,7 @@ public class MemberDAO {
 		result = ps.executeUpdate(); //1
 		System.out.println("4.ok----------");
 		}catch(Exception e) {
+			e.printStackTrace();
 			System.out.println("에러가 발생함.");
 		}
 		return result; //1, 0
@@ -45,7 +46,6 @@ public class MemberDAO {
 
 	// 로그인처리
 	public boolean login(MemberDTO dto) throws Exception {
-		// JDBC4단계
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		// 특정한 위치에 있는 드라이버 파일을 램에 읽어들여 설정
 		System.out.println("1. 드라이버 설정 성공.@@@@");

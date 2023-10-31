@@ -25,7 +25,7 @@ BbsDTO dto = new BbsDTO();
 
 dto.setId(request.getParameter("id"));
 
-BbsDTO bag = dao.one(dto);
+BbsDTO bag = dao.getOneId(dto);
 %>
 <body>
 	<div id="total">

@@ -1,5 +1,6 @@
 <%@page import="bean.BbsDTO"%>
 <%@page import="bean.BbsDAO"%>
+<%@ page import="bean.BbsDTO2" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,13 +20,13 @@
 </head>
 <%
 //jsp에 자동import
-//클릭하고 ctrl + shift + m 
+//클릭하고 ctrl + shift + m
 BbsDAO dao = new BbsDAO();
-BbsDTO dto = new BbsDTO();
+BbsDTO2 dto = new BbsDTO2();
 
 dto.setId(Integer.parseInt(request.getParameter("id")));
 
-BbsDTO bag = dao.one(dto);
+BbsDTO2 bag = dao.getOneId(dto);
 %>
 <body>
 	<div id="total">
@@ -63,8 +64,8 @@ BbsDTO bag = dao.one(dto);
 						<td width="200">작성자</td>
 						<td width="300">
 						<!-- type="hidden"이면 input이 안보임. 값은 전달됨 -->
-						<input 	name="writer" style="height: 100px;" 
-								value="<%=session.getAttribute("id")%>" 
+						<input 	name="writer" style="height: 100px;"
+								value="<%=session.getAttribute("id")%>"
 								readonly="readonly"
 								disabled="disabled"
 								>
