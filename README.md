@@ -16,6 +16,8 @@
 - **Database**: MySQL
 - **Frontend**: HTML, CSS, Bootstrap
 
+### erd 다이어그램
+![jsp_project_diagram](https://github.com/myoungsuk/jsp-project/assets/81986479/c63fa0ab-7c21-464c-b0f6-305b51d53b2b)
 
 ### 로그인 및 회원가입
 ![로그인 및 회원가입](https://github.com/myoungsuk/jsp-project/assets/81986479/fec26478-86a9-4330-9e0d-46550686b2b0)
