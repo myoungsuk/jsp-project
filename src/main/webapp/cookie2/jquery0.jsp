@@ -9,18 +9,8 @@
     <script type="text/javascript" src="../js/jquery-3.7.1.js"></script>
     <script type="text/javascript">
         $(function(){
-            $("#b1").click(function(){
-                var year = $("#year").val();
-                var age = 2021 - year + 1;
-                alert("당신의 나이는 " + age + "입니다.");
-            });
 
-            $("#b2").click(function(){
-                var w = $("#w").val();
-                var h = $("#h").val();
-                var area = w * h;
-                alert("사각형의 면적은 " + area + "입니다.");
-            });
+
         });
     </script>
 </head>
