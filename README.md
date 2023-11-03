@@ -36,4 +36,6 @@
 <img src="https://github.com/myoungsuk/jsp-project/assets/81986479/03d48765-1421-4186-bf27-f82c35c3ff3a" width="600">
 
 ### 장바구니목록
-<img src="https://github.com/myoungsuk/jsp-project/assets/81986479/8a42f672-6d40-44be-9b4a-008ca9957e3b" width="600">
+<img src="https://github.com/myoungsuk/jsp-project/assets/81986479/f05cac9f-36b7-497c-b04b-912163bf3cb6" width="600">
+
+
